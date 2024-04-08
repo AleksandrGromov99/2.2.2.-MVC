@@ -1,34 +1,31 @@
 package web.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import web.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-@Component
-public class CarServiceImpl implements CarService{
 
-        private static int CARS_COUNT;
-        private List<Car> cars;
+@Service
+public class CarServiceImpl implements CarService {
 
-        {
-            cars = new ArrayList<>();
-            cars.add(new Car("Ford", "black", ++CARS_COUNT));
-            cars.add(new Car("Opel", "white", ++CARS_COUNT));
-            cars.add(new Car("BMW", "blue", ++CARS_COUNT));
-            cars.add(new Car("Toyota", "grey", ++CARS_COUNT));
-            cars.add(new Car("Mazda", "red", ++CARS_COUNT));
-            cars.add(new Car("BMW", "red", ++CARS_COUNT));
-            cars.add(new Car("Mercedes", "red", ++CARS_COUNT));
-            cars.add(new Car("VW", "red", ++CARS_COUNT));
-            cars.add(new Car("Peugeot", "red", ++CARS_COUNT));
-            cars.add(new Car("Nissan", "red", ++CARS_COUNT));
+    private List<Car> cars;
+
+    {
+        cars = new ArrayList<>();
+        cars.add(new Car("Ford", "black", 2));
+        cars.add(new Car("Opel", "white", 3));
+        cars.add(new Car("BMW", "blue", 1));
+        cars.add(new Car("Toyota", "grey", 7));
+        cars.add(new Car("Mazda", "red", 10));
+    }
+
+    @Override
+    public List<Car> show(int count) {
+        if (count > 5) {
+            return cars;
+        } else {
+            return cars.subList(0, count);
         }
-
-        @Override
-        public List<Car> show (int count){
-            return cars.stream().filter(car -> car.getId()<=count).collect(Collectors.toList());
-        }
-
+    }
 }
